@@ -1,3 +1,7 @@
+.searchInputContainer {
+  text-align: center;
+}
+
 .searchInput {
   width: 400px;
   height: 40px;

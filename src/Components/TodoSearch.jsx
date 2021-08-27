@@ -3,9 +3,9 @@ import "../styles/TodoSearch.css";
 
 const TodoSearch = () => {
   return (
-    <React.Fragment>
+    <div className="searchInputContainer">
       <input type="text" placeholder="Cebolla" className="searchInput" />
-    </React.Fragment>
+    </div>
   );
 };
 

@@ -14,10 +14,3 @@ body {
   text-align: center;
   font-size: 48px;
 }
-
-.container {
-  border-radius: 10px;
-  text-align: center;
-  margin: auto 25%;
-  /* background-color: rgba(244, 244, 244, 0.1); */
-}

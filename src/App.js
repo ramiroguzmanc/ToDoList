@@ -16,16 +16,14 @@ function App() {
   return (
     <React.Fragment>
       <h1 className="title">Your To Do List</h1>
-      <div className="container">
-        <TodoCounter />
-        <TodoSearch />
-        <TodoList>
-          {toDos.map((todo, idx) => (
-            <TodoItem text={todo.text} key={idx} />
-          ))}
-        </TodoList>
-        <CreateTodoButton />
-      </div>
+      <TodoCounter />
+      <TodoSearch />
+      <TodoList>
+        {toDos.map((todo, idx) => (
+          <TodoItem text={todo.text} key={idx} />
+        ))}
+      </TodoList>
+      <CreateTodoButton />
     </React.Fragment>
   );
 }
