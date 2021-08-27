@@ -16,9 +16,9 @@ function App() {
   return (
     <React.Fragment>
       <h1 className="title">Your To Do List</h1>
-      <TodoCounter />
-      <TodoSearch />
       <TodoList>
+        <TodoCounter />
+        <TodoSearch />
         {toDos.map((todo, idx) => (
           <TodoItem text={todo.text} key={idx} />
         ))}

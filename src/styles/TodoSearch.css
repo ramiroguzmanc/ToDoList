@@ -5,11 +5,12 @@
 .searchInput {
   width: 400px;
   height: 40px;
-  border: 0.5px solid gray;
+  border: 0.5px solid transparent;
   border-radius: 6px;
-  background-color: rgb(68, 16, 151, 0.7);
+  background-color: rgb(68, 16, 151, 0.4);
   color: whitesmoke;
   padding: 0px 10px;
+  margin-bottom: 15px;
 }
 
 .searchInput:focus {
