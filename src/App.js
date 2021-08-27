@@ -15,7 +15,7 @@ const toDos = [
 function App() {
   return (
     <React.Fragment>
-      <h1 className="title">Your To Do List</h1>
+      <h1 className="title">📌Your To Do List 🧾</h1>
       <TodoList>
         <TodoCounter />
         <TodoSearch />
