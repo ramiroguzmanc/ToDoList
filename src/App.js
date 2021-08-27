@@ -22,8 +22,8 @@ function App() {
         {toDos.map((todo, idx) => (
           <TodoItem text={todo.text} key={idx} />
         ))}
+        <CreateTodoButton />
       </TodoList>
-      <CreateTodoButton />
     </React.Fragment>
   );
 }

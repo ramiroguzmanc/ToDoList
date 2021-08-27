@@ -5,6 +5,7 @@ ul {
 }
 
 .container {
+  position: relative;
   border-radius: 10px;
   text-align: center;
   margin: 45px 25%;
