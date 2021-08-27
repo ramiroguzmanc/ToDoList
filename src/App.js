@@ -4,7 +4,7 @@ import { TodoCounter } from "./Components/TodoCounter";
 import { TodoSearch } from "./Components/TodoSearch";
 import { TodoList } from "./Containers/TodoList";
 import { TodoItem } from "./Components/TodoItem";
-// import './App.css';
+import "./App.css";
 
 const toDos = [
   { text: "Cortar cebolla", completed: false },
@@ -15,15 +15,17 @@ const toDos = [
 function App() {
   return (
     <React.Fragment>
-      <TodoCounter />
-      <CreateTodoButton />
-      <TodoSearch />
-      <TodoList>
-        {toDos.map((todo, idx) => (
-          <TodoItem text={todo.text} key={idx} />
-        ))}
-      </TodoList>
-      <CreateTodoButton />
+      <h1 className="title">Your To Do List</h1>
+      <div className="container">
+        <TodoCounter />
+        <TodoSearch />
+        <TodoList>
+          {toDos.map((todo, idx) => (
+            <TodoItem text={todo.text} key={idx} />
+          ))}
+        </TodoList>
+        <CreateTodoButton />
+      </div>
     </React.Fragment>
   );
 }
