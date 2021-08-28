@@ -23,3 +23,9 @@
 .searchInput::placeholder {
   color: whitesmoke;
 }
+
+@media only screen and (max-width: 572px) {
+  .searchInput {
+    width: 80%;
+  }
+}
