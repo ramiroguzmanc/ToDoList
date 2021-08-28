@@ -13,3 +13,7 @@
   display: flex;
   text-align: start;
 }
+
+.textTaskCompleted {
+  text-decoration: line-through;
+}

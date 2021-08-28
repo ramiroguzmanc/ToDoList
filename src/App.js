@@ -7,7 +7,7 @@ import { TodoItem } from "./Components/TodoItem";
 import "./App.css";
 
 const toDos = [
-  { text: "Cortar cebolla", completed: false },
+  { text: "Cortar cebolla", completed: true },
   { text: "Tomar el curso de Intro de React", completed: false },
   {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In blandit eget libero nec consectetur. Donec vel risus sapien. Duis tincidunt id nibh a cursus. Vivamus quis velit eget nibh bibendum interdum. ",
@@ -25,7 +25,7 @@ function App() {
         <TodoCounter />
         <TodoSearch />
         {toDos.map((todo, idx) => (
-          <TodoItem text={todo.text} key={idx} />
+          <TodoItem text={todo.text} key={idx} completed={todo.completed} />
         ))}
         <CreateTodoButton />
       </TodoList>

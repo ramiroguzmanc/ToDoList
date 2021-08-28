@@ -8,11 +8,13 @@ const TodoItem = (props) => {
     <li className="item">
       <div className="textContainer">
         <Checkbox
-          checked={undefined}
+          defaultChecked={props.completed}
           inputProps={{ "aria-label": "primary checkbox" }}
           color="primary"
         />
-        <p>{props.text}</p>
+        <p className={props.completed ? "textTaskCompleted" : ""}>
+          {props.text}
+        </p>
       </div>
       <IconButton aria-label="delete">
         <DeleteIcon />
