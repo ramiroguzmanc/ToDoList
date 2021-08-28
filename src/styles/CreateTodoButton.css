@@ -6,4 +6,10 @@
   height: 45px;
   background-color: rgb(199, 19, 199);
   color: white;
+  box-shadow: -1px 1px 3px 0px #1d1c1c;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: rgba(199, 19, 199, 0.8);
 }
