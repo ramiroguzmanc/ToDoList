@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/TodoSearch.css";
 
-const TodoSearch = () => {
+const TodoSearch = ({ searchValue, setSearchValue }) => {
   const onInputTextChange = (ev) => {
-    console.log(ev.target.value);
+    setSearchValue(ev.target.value);
   };
 
   return (
@@ -12,6 +12,7 @@ const TodoSearch = () => {
         type="text"
         placeholder="Buscar ToDo..."
         className="searchInput"
+        value={searchValue}
         onChange={onInputTextChange}
       />
     </div>
