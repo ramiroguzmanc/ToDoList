@@ -13,7 +13,6 @@ const defaultToDos = [
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In blandit eget libero nec consectetur. Donec vel risus sapien. Duis tincidunt id nibh a cursus. Vivamus quis velit eget nibh bibendum interdum. ",
     completed: false,
   },
-  { text: "Tomar el curso de Intro de React", completed: true },
   { text: "Llorar con la llorona", completed: false },
 ];
 
@@ -24,14 +23,30 @@ function App() {
   const completedToDos = toDos.filter((todo) => !!todo.completed).length; // Doble falso (!!) es verdadero = true
   const totalToDos = toDos.length;
 
+  let searchedToDos = [];
+
+  if (searchValue.length >= 1) {
+    searchedToDos = toDos.filter((todo) => {
+      const toDoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return toDoText.includes(searchText);
+    });
+  } else {
+    searchedToDos = toDos;
+  }
+
   return (
     <React.Fragment>
       <h1 className="title">📌Your To Do List 🧾</h1>
       <TodoList>
         <TodoCounter total={totalToDos} completed={completedToDos} />
         <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-        {toDos.map((todo, idx) => (
-          <TodoItem text={todo.text} key={idx} completed={todo.completed} />
+        {searchedToDos.map((todo) => (
+          <TodoItem
+            text={todo.text}
+            key={todo.text}
+            completed={todo.completed}
+          />
         ))}
         <CreateTodoButton />
       </TodoList>
