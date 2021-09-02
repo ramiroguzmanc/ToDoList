@@ -7,20 +7,21 @@ import { TodoItem } from "./Components/TodoItem";
 import "./App.css";
 
 const defaultToDos = [
-  { text: "Cortar cebolla", completed: true },
-  { text: "Tomar el curso de Intro de React", completed: false },
+  { id: 1, text: "Cortar cebolla", completed: true },
+  { id: 2, text: "Tomar el curso de Intro de React", completed: false },
   {
+    id: 3,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In blandit eget libero nec consectetur. Donec vel risus sapien. Duis tincidunt id nibh a cursus. Vivamus quis velit eget nibh bibendum interdum. ",
     completed: false,
   },
-  { text: "Llorar con la llorona", completed: false },
+  { id: 4, text: "Llorar con la llorona", completed: false },
 ];
 
 function App() {
   const [toDos, setToDos] = useState(defaultToDos);
   const [searchValue, setSearchValue] = useState("");
 
-  const completedToDos = toDos.filter((todo) => !!todo.completed).length; // Doble falso (!!) es verdadero = true
+  const completedToDos = toDos.filter((todo) => !!todo.completed).length; // Doble falso (!!) es verdadero = true, esto sería el equivalente a poner todo.completed == true
   const totalToDos = toDos.length;
 
   let searchedToDos = [];
@@ -35,6 +36,20 @@ function App() {
     searchedToDos = toDos;
   }
 
+  const onToDoStateChange = function (id) {
+    const todoIndex = toDos.findIndex((todo) => todo.id === id);
+    const newToDos = [...toDos];
+    newToDos[todoIndex].completed = !newToDos[todoIndex].completed;
+    setToDos(newToDos);
+  };
+
+  const deleteToDo = function (id) {
+    const todoIndex = toDos.findIndex((todo) => todo.id === id);
+    const newToDos = [...toDos];
+    newToDos.splice(todoIndex, 1);
+    setToDos(newToDos);
+  };
+
   return (
     <React.Fragment>
       <h1 className="title">📌Your To Do List 🧾</h1>
@@ -44,8 +59,11 @@ function App() {
         {searchedToDos.map((todo) => (
           <TodoItem
             text={todo.text}
-            key={todo.text}
+            key={todo.id}
+            id={todo.id}
             completed={todo.completed}
+            onToDoStateChange={onToDoStateChange}
+            deleteToDo={deleteToDo}
           />
         ))}
         <CreateTodoButton />

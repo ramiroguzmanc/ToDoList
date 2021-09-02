@@ -4,28 +4,27 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import "../styles/TodoItem.css";
 
 const TodoItem = (props) => {
-  const onComplete = (task) => {
-    alert("Felicidades, completaste la tarea: " + task);
-  };
-
-  const onDelete = () => {
-    alert("Eliminaste una tarea");
+  const onComplete = (taskID) => {
+    props.onToDoStateChange(taskID);
   };
 
   return (
     <li className="item">
       <div className="textContainer">
         <Checkbox
-          defaultChecked={props.completed}
+          checked={props.completed}
           inputProps={{ "aria-label": "primary checkbox" }}
           color="primary"
-          onClick={() => onComplete(props.text)}
+          onClick={() => onComplete(props.id)}
         />
         <p className={props.completed ? "textTaskCompleted" : ""}>
           {props.text}
         </p>
       </div>
-      <IconButton aria-label="delete" onClick={onDelete}>
+      <IconButton
+        aria-label="delete"
+        onClick={() => props.deleteToDo(props.id)}
+      >
         <DeleteIcon />
       </IconButton>
     </li>
