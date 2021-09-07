@@ -6,19 +6,29 @@ import { TodoList } from "./Containers/TodoList";
 import { TodoItem } from "./Components/TodoItem";
 import "./App.css";
 
-const defaultToDos = [
-  { id: 1, text: "Cortar cebolla", completed: true },
-  { id: 2, text: "Tomar el curso de Intro de React", completed: false },
-  {
-    id: 3,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In blandit eget libero nec consectetur. Donec vel risus sapien. Duis tincidunt id nibh a cursus. Vivamus quis velit eget nibh bibendum interdum. ",
-    completed: false,
-  },
-  { id: 4, text: "Llorar con la llorona", completed: false },
-];
+// const defaultToDos = [
+//   { id: 1, text: "Cortar cebolla", completed: true },
+//   { id: 2, text: "Tomar el curso de Intro de React", completed: false },
+//   {
+//     id: 3,
+//     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In blandit eget libero nec consectetur. Donec vel risus sapien. Duis tincidunt id nibh a cursus. Vivamus quis velit eget nibh bibendum interdum. ",
+//     completed: false,
+//   },
+//   { id: 4, text: "Llorar con la llorona", completed: false },
+// ];
 
 function App() {
-  const [toDos, setToDos] = useState(defaultToDos);
+  const localStorageTodos = localStorage.getItem("TODOS_V1");
+  let parsedTodos;
+
+  if (localStorageTodos) {
+    parsedTodos = JSON.parse(localStorageTodos);
+  } else {
+    localStorage.setItem("TODOS_V1", JSON.stringify([]));
+    parsedTodos = [];
+  }
+
+  const [toDos, setToDos] = useState(parsedTodos);
   const [searchValue, setSearchValue] = useState("");
 
   const completedToDos = toDos.filter((todo) => !!todo.completed).length; // Doble falso (!!) es verdadero = true, esto sería el equivalente a poner todo.completed == true
@@ -36,18 +46,24 @@ function App() {
     searchedToDos = toDos;
   }
 
+  const saveToDos = (newTodos) => {
+    const stringifiedTodos = JSON.stringify(newTodos);
+    localStorage.setItem("TODOS_V1", stringifiedTodos);
+    setToDos(newTodos);
+  };
+
   const onToDoStateChange = function (id) {
     const todoIndex = toDos.findIndex((todo) => todo.id === id);
     const newToDos = [...toDos];
     newToDos[todoIndex].completed = !newToDos[todoIndex].completed;
-    setToDos(newToDos);
+    saveToDos(newToDos);
   };
 
   const deleteToDo = function (id) {
     const todoIndex = toDos.findIndex((todo) => todo.id === id);
     const newToDos = [...toDos];
     newToDos.splice(todoIndex, 1);
-    setToDos(newToDos);
+    saveToDos(newToDos);
   };
 
   return (
