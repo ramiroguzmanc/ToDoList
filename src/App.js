@@ -17,18 +17,31 @@ import "./App.css";
 //   { id: 4, text: "Llorar con la llorona", completed: false },
 // ];
 
-function App() {
-  const localStorageTodos = localStorage.getItem("TODOS_V1");
-  let parsedTodos;
+function useLocalStorage(itemName, initialValue) {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if (localStorageTodos) {
-    parsedTodos = JSON.parse(localStorageTodos);
+  if (localStorageItem) {
+    parsedItem = JSON.parse(localStorageItem);
   } else {
-    localStorage.setItem("TODOS_V1", JSON.stringify([]));
-    parsedTodos = [];
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   }
 
-  const [toDos, setToDos] = useState(parsedTodos);
+  const [item, setItem] = useState(parsedItem);
+
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  };
+
+  return [item, saveItem];
+}
+
+function App() {
+  const [toDos, saveToDos] = useLocalStorage("TODOS_V1", []);
+
   const [searchValue, setSearchValue] = useState("");
 
   const completedToDos = toDos.filter((todo) => !!todo.completed).length; // Doble falso (!!) es verdadero = true, esto sería el equivalente a poner todo.completed == true
@@ -45,12 +58,6 @@ function App() {
   } else {
     searchedToDos = toDos;
   }
-
-  const saveToDos = (newTodos) => {
-    const stringifiedTodos = JSON.stringify(newTodos);
-    localStorage.setItem("TODOS_V1", stringifiedTodos);
-    setToDos(newTodos);
-  };
 
   const onToDoStateChange = function (id) {
     const todoIndex = toDos.findIndex((todo) => todo.id === id);
