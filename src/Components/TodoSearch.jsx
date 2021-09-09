@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../Context";
 import "../styles/TodoSearch.css";
 
-const TodoSearch = ({ searchValue, setSearchValue }) => {
+const TodoSearch = () => {
+  const { searchValue, setSearchValue } = useContext(TodoContext);
+
   const onInputTextChange = (ev) => {
     setSearchValue(ev.target.value);
   };
