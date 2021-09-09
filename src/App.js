@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { CreateTodoButton } from "./Components/CreateTodoButton";
-import { TodoCounter } from "./Components/TodoCounter";
-import { TodoSearch } from "./Components/TodoSearch";
-import { TodoList } from "./Containers/TodoList";
-import { TodoItem } from "./Components/TodoItem";
+
+import { AppUI } from "./Containers/AppUI";
 import "./App.css";
 
 // const defaultToDos = [
@@ -100,29 +97,17 @@ function App() {
   // }, [totalToDos]);
 
   return (
-    <React.Fragment>
-      <h1 className="title">📌Your To Do List 🧾</h1>
-      <TodoList>
-        <TodoCounter total={totalToDos} completed={completedToDos} />
-        <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-
-        {error && <p>Ha ocurrido un error...</p>}
-        {loading && <p>Cargando...</p>}
-        {!loading && !searchedToDos.length && <p>Crea tu primer ToDo</p>}
-
-        {searchedToDos.map((todo) => (
-          <TodoItem
-            text={todo.text}
-            key={todo.id}
-            id={todo.id}
-            completed={todo.completed}
-            onToDoStateChange={onToDoStateChange}
-            deleteToDo={deleteToDo}
-          />
-        ))}
-        <CreateTodoButton />
-      </TodoList>
-    </React.Fragment>
+    <AppUI
+      totalToDos={totalToDos}
+      completedToDos={completedToDos}
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+      error={error}
+      loading={loading}
+      searchedToDos={searchedToDos}
+      onToDoStateChange={onToDoStateChange}
+      deleteToDo={deleteToDo}
+    />
   );
 }
 
