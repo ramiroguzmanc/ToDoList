@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CreateTodoButton } from "./Components/CreateTodoButton";
 import { TodoCounter } from "./Components/TodoCounter";
 import { TodoSearch } from "./Components/TodoSearch";
@@ -18,29 +18,51 @@ import "./App.css";
 // ];
 
 function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [item, setItem] = useState(initialValue);
 
-  if (localStorageItem) {
-    parsedItem = JSON.parse(localStorageItem);
-  } else {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
 
-  const [item, setItem] = useState(parsedItem);
+        if (localStorageItem) {
+          parsedItem = JSON.parse(localStorageItem);
+        } else {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        }
+
+        setItem(parsedItem);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+      }
+    }, 2000);
+  });
 
   const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
+    try {
+      const stringifiedItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifiedItem);
+      setItem(newItem);
+    } catch (error) {
+      setError(error);
+    }
   };
 
-  return [item, saveItem];
+  return { item, saveItem, loading, error };
 }
 
 function App() {
-  const [toDos, saveToDos] = useLocalStorage("TODOS_V1", []);
+  const {
+    item: toDos,
+    saveItem: saveToDos,
+    loading,
+    error,
+  } = useLocalStorage("TODOS_V1", []);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -73,12 +95,21 @@ function App() {
     saveToDos(newToDos);
   };
 
+  // useEffect(() => {
+  //   console.log("Ejecutando Effect");
+  // }, [totalToDos]);
+
   return (
     <React.Fragment>
       <h1 className="title">📌Your To Do List 🧾</h1>
       <TodoList>
         <TodoCounter total={totalToDos} completed={completedToDos} />
         <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+
+        {error && <p>Ha ocurrido un error...</p>}
+        {loading && <p>Cargando...</p>}
+        {!loading && !searchedToDos.length && <p>Crea tu primer ToDo</p>}
+
         {searchedToDos.map((todo) => (
           <TodoItem
             text={todo.text}
