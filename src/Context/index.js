@@ -12,6 +12,7 @@ function TodoProvider(props) {
   } = useLocalStorage("TODOS_V1", []);
 
   const [searchValue, setSearchValue] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   const completedToDos = toDos.filter((todo) => !!todo.completed).length; // Doble falso (!!) es verdadero = true, esto sería el equivalente a poner todo.completed == true
   const totalToDos = toDos.length;
@@ -27,6 +28,16 @@ function TodoProvider(props) {
   } else {
     searchedToDos = toDos;
   }
+
+  const addToDo = function (text) {
+    const newToDos = [...toDos];
+    newToDos.push({
+      id: totalToDos + 1,
+      completed: false,
+      text: text,
+    });
+    saveToDos(newToDos);
+  };
 
   const onToDoStateChange = function (id) {
     const todoIndex = toDos.findIndex((todo) => todo.id === id);
@@ -52,8 +63,11 @@ function TodoProvider(props) {
         error,
         loading,
         searchedToDos,
+        addToDo,
         onToDoStateChange,
         deleteToDo,
+        openModal,
+        setOpenModal,
       }}
     >
       {props.children}

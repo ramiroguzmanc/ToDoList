@@ -1,0 +1,73 @@
+.ModalBackground {
+  background-color: rgba(32, 35, 41, 0.8);
+  position: fixed;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.ModalCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.ModalCloseButton:hover {
+  cursor: pointer;
+}
+
+.FormContainer {
+  align-items: center;
+  text-align: center;
+}
+
+.TodoTextarea {
+  border-radius: 7px;
+  width: 500px;
+  height: 100px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 18px;
+}
+
+.TodoTextarea:focus {
+  outline: none;
+}
+
+.ButtonsContainer {
+  margin-top: 20px;
+}
+
+.Button {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 2% 1%;
+  margin: auto 5px;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.Button:hover {
+  cursor: pointer;
+}
+
+.CancelButton {
+  background-color: #bb2d3b;
+}
+
+.CancelButton:hover {
+  background-color: rgba(175, 36, 36, 0.8);
+}
+
+.SubmitButton {
+  background-color: dodgerblue;
+}
+
+.SubmitButton:hover {
+  background-color: rgba(6, 108, 204, 0.8);
+}

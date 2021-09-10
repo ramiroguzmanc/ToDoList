@@ -1,14 +1,26 @@
 import React, { useContext } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 import { TodoContext } from "../Context";
 import { CreateTodoButton } from "../Components/CreateTodoButton";
 import { TodoCounter } from "../Components/TodoCounter";
 import { TodoSearch } from "../Components/TodoSearch";
 import { TodoList } from "../Containers/TodoList";
 import { TodoItem } from "../Components/TodoItem";
+import { Modal } from "../Containers/Modal";
+import { TodoForm } from "./TodoForm";
+
+import "../styles/Modal.css";
 
 const AppUI = () => {
-  const { error, loading, searchedToDos, onToDoStateChange, deleteToDo } =
-    useContext(TodoContext);
+  const {
+    error,
+    loading,
+    searchedToDos,
+    onToDoStateChange,
+    deleteToDo,
+    openModal,
+    setOpenModal,
+  } = useContext(TodoContext);
 
   return (
     <React.Fragment>
@@ -32,6 +44,18 @@ const AppUI = () => {
         ))}
         <CreateTodoButton />
       </TodoList>
+      {openModal && (
+        <Modal>
+          <CloseIcon
+            className="ModalCloseButton"
+            onClick={() => setOpenModal(false)}
+          />
+          <div className="FormContainer">
+            <h1>Agregar nuevo To Do</h1>
+            <TodoForm setOpenModal={setOpenModal} />
+          </div>
+        </Modal>
+      )}
     </React.Fragment>
   );
 };
